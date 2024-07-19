@@ -1,5 +1,5 @@
 ### STAGE 1: Build Angular app ###
-FROM node:14 AS build
+FROM node:16 AS build
 WORKDIR /app
 
 # Copy package files and install dependencies
@@ -11,7 +11,7 @@ RUN npm install
 COPY . .
 
 # Build the Angular application
-#RUN npm run build --prod
+RUN npm run build --prod
 
 ### STAGE 2: Run with Nginx ###
 FROM nginx:latest AS ngi
