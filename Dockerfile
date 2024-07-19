@@ -1,10 +1,14 @@
-FROM node:14 AS build
+### STAGE 1: Build Angular app ###
+FROM node AS build
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm install
+RUN npm cache clean --force
 COPY . .
+RUN npm install --legacy-peer-deps --force
 RUN npm run build --prod
-FROM nginx:alpine
-COPY --from=build /app/dist/E-MarketHubFrant /usr/share/nginx/html
-EXPOSE 8003
-CMD ["nginx", "-g", "daemon off;"]
+
+### STAGE 2: Run with Nginx ###
+FROM nginx:latest AS ngi
+COPY --from=build /app/dist/crudtuto-Front /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
