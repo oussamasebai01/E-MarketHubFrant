@@ -2,7 +2,7 @@
 FROM node:14 AS build
 WORKDIR /app
 COPY package.json package-lock.json ./
-#RUN npm cache clean --force
+RUN npm cache clean --force
 COPY . .
 RUN npm install 
 #--legacy-peer-deps --force
