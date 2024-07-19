@@ -11,7 +11,7 @@ RUN npm install
 COPY . .
 
 # Build the Angular application
-RUN npm run build --prod
+#RUN npm run build --prod
 
 ### STAGE 2: Run with Nginx ###
 FROM nginx:latest AS ngi
