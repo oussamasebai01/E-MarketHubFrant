@@ -17,7 +17,7 @@ spec:
       - name: frontend-app
         image: oussamasebai/front_pfe:1.0 
         ports:
-        - containerPort: 8002
+        - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
@@ -28,6 +28,6 @@ spec:
     app: frontend-app
   ports:
   - protocol: TCP
-    port: 8002
-    targetPort: 8002
+    port: 4000
+    targetPort: 80
   type: LoadBalancer
