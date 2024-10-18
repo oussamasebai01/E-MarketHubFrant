@@ -5,8 +5,11 @@ WORKDIR /app
 # Copy package files and install dependencies
 COPY package.json package-lock.json ./
 
-RUN npm install --legacy-peer-deps --force
+# Install missing dependencies explicitly
+RUN npm install @popperjs/core --legacy-peer-deps --force
 
+# Install other dependencies
+RUN npm install --legacy-peer-deps --force
 
 # Copy the rest of the application code
 COPY . .
