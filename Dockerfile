@@ -4,17 +4,18 @@ WORKDIR /app
 
 # Copy package files and install dependencies
 COPY package.json package-lock.json ./
-RUN npm cache clean --force
-RUN npm install
+
+RUN npm install --legacy-peer-deps --force
+
 
 # Copy the rest of the application code
 COPY . .
 
 # Build the Angular application
-RUN npm run build --prod
+RUN npm run build
 
 ### STAGE 2: Run with Nginx ###
-FROM nginx:latest AS ngi
+FROM nginx:latest
 
 # Copy the built Angular app to the Nginx html directory
 COPY --from=build /app/dist/summer-workshop-angular /usr/share/nginx/html
